@@ -56,3 +56,4 @@ export default function ExpenseTable({ expenses }) {
     </table>
   );
 }
+
