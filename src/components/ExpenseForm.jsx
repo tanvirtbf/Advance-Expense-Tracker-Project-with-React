@@ -10,7 +10,7 @@ export default function ExpenseForm() {
       <div className="input-container">
         <label htmlFor="category">Category</label>
         <select id="category">
-          <option value="">All</option>
+          <option value="" hidden>Select Category</option>
           <option value="grocery">Grocery</option>
           <option value="clothes">Clothes</option>
           <option value="bills">Bills</option>
