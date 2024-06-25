@@ -1,17 +1,17 @@
 export default function ExpenseForm({ setExpenses }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {};
-    for (const [key, value] of formData.entries()) {
-      data[key] = value;
-    }
-    console.log(data);
-    setExpenses((prevState) => [
-      ...prevState,
-      { id: crypto.randomUUID(), ...data },
-    ]);
+    setExpenses((prevState)=>[...prevState, {id:crypto.randomUUID(),...getFormData(e.target)}])
   };
+
+  const getFormData = (form) =>{
+    const formData = new FormData(form)
+    const data = {}
+    for(const [key,value] of formData.entries()){
+      data[key] = value
+    }
+    return data
+  }
 
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
