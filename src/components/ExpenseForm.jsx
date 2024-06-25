@@ -11,7 +11,12 @@ export default function ExpenseForm({ setExpenses }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setExpenses((prevState) => [...prevState, data])
-    
+    setData((prevState)=>({
+      ...prevState,
+      title:"",
+      category:"",
+      amount:""
+    }))
   };
 
 
