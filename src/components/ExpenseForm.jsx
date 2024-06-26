@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function ExpenseForm({ setExpenses }) {
   const [data, setData] = useState({
@@ -7,6 +7,9 @@ export default function ExpenseForm({ setExpenses }) {
     category: "",
     amount: "",
   });
+
+  const myRef = useRef("hello")
+  console.log(myRef)
 
   const handleSubmit = (e) => {
     e.preventDefault();
