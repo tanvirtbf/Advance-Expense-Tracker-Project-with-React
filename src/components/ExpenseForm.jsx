@@ -15,7 +15,6 @@ export default function ExpenseForm({ setExpenses }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(titleRef.current.value);
 
     if (titleRef.current.value === "")
       setIsNull((prev) => ({ ...prev, isTitle: false }));
