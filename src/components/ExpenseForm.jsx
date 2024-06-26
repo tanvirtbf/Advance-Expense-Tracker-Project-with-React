@@ -1,23 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function ExpenseForm({ setExpenses }) {
-  const [data, setData] = useState({
-    id: crypto.randomUUID(),
-    title: "",
-    category: "",
-    amount: "",
-  });
 
+  const titleRef = useRef("")
+  const categoryRef = useRef("")
+  const amountRef = useRef("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(titleRef.current.value)
+
+    let data = {
+      id:crypto.randomUUID(),
+      title:titleRef.current.value,
+      category:categoryRef.current.value,
+      amount:amountRef.current.value,
+    }
     setExpenses((prevState) => [...prevState, data]);
-    setData((prevState) => ({
-      ...prevState,
-      title: "",
-      category: "",
-      amount: "",
-    }));
+    titleRef.current.value=""
+    categoryRef.current.value=""
+    amountRef.current.value=""
   };
 
   return (
@@ -26,20 +28,14 @@ export default function ExpenseForm({ setExpenses }) {
         <label htmlFor="title">Title</label>
         <input
           id="title"
-          value={data.title}
-          onChange={(e) =>
-            setData((prevState) => ({ ...prevState, title: e.target.value }))
-          }
+          ref={titleRef}
         />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
         <select
           id="category"
-          value={data.category}
-          onChange={(e) =>
-            setData((prevState) => ({ ...prevState, category: e.target.value }))
-          }
+          ref={categoryRef}
         >
           <option value="" hidden>
             Select Category
@@ -55,10 +51,7 @@ export default function ExpenseForm({ setExpenses }) {
         <label htmlFor="amount">Amount</label>
         <input
           id="amount"
-          value={data.amount}
-          onChange={(e) =>
-            setData((prevState) => ({ ...prevState, amount: e.target.value }))
-          }
+          ref={amountRef}
         />
       </div>
       <button className="add-btn">Add</button>
