@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ExpenseForm({ setExpenses }) {
   const [data, setData] = useState({
@@ -9,8 +9,11 @@ export default function ExpenseForm({ setExpenses }) {
   });
 
   const myRef = useRef(0)
-  let myNum = 0
-  console.log(myRef)
+  useEffect(()=>{
+    myRef.current.addEventListener("click",()=>{
+      console.log('Hii')
+    })
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,13 +28,9 @@ export default function ExpenseForm({ setExpenses }) {
 
   return (
     <>
-      <button onClick={()=>{
+      <button ref={myRef} onClick={()=>{
         myRef.current=myRef.current+1;
-        myNum = myNum + 1
-        console.log(myRef)
-        console.log(myNum)
       }}>Click</button>
-      <h1>myRef : {myRef.current} and myNum : {myNum}</h1>
       <form className="expense-form" onSubmit={handleSubmit}>
         <div className="input-container">
           <label htmlFor="title">Title</label>
