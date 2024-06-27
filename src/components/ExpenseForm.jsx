@@ -7,8 +7,27 @@ export default function ExpenseForm({ setExpenses }) {
     amount:'',
   })
 
+  const [errors,setErrors] = useState("")
+
+  const validate = (form) => {
+    let errorMsg = {}
+    if(!expense.title){
+      errorMsg.title = "Title is Required"
+    }
+    if(!expense.category){
+      errorMsg.category = "Category is Required"
+    }
+    if(!expense.amount){
+      errorMsg.amount = "Amount is Required"
+    }
+    setErrors(errorMsg)
+    return errorMsg
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validation = validate(expense)
+    if(Object.keys(validation).length) return 
     setExpenses((prevState) => [
       ...prevState,
       {
