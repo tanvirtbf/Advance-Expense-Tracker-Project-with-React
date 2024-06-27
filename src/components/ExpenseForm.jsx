@@ -9,7 +9,10 @@ export default function ExpenseForm({ setExpenses }) {
   })
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(expense)
+    setExpenses((prevState)=>[
+      ...prevState,
+      {id:crypto.randomUUID(),...expense}
+    ])
   };
 
   return (
