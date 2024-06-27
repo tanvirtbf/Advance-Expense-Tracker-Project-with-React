@@ -16,11 +16,11 @@ export default function ExpenseForm({ setExpenses }) {
     <form className="expense-form" onSubmit={handleSubmit}>
       <div className="input-container">
         <label htmlFor="title">Title</label>
-        <input id="title"  />
+        <input id="title" onChange={(e)=> setExpense((prevState)=>({...prevState,title:e.target.value}))} />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
-        <select id="category" >
+        <select id="category" onChange={(e)=> setExpense((prevState)=>({...prevState,category:e.target.value}))}>
           <option value="" hidden>
             Select Category
           </option>
@@ -33,7 +33,7 @@ export default function ExpenseForm({ setExpenses }) {
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
-        <input id="amount"  />
+        <input id="amount" onChange={(e)=>setExpense((prevState)=>({...prevState,amount:e.target.value}))} />
       </div>
       <button type="submit" className="add-btn">
         Add
