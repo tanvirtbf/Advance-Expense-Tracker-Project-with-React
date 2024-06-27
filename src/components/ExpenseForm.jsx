@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ErrorMsg from "./ErrorMsg";
 
 //Validation
 export default function ExpenseForm({ setExpenses }) {
@@ -10,6 +9,7 @@ export default function ExpenseForm({ setExpenses }) {
   })
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(expense)
   };
 
   return (
