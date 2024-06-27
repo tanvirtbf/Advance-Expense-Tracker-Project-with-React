@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ErrorMsg from "./ErrorMsg";
 
 //Validation
@@ -15,32 +15,35 @@ export default function ExpenseForm({ setExpenses }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(titleRef.current.value);
-
-    if (titleRef.current.value === "")
-      setIsNull((prev) => ({ ...prev, isTitle: false }));
-    if (categoryRef.current.value === "")
-      setIsNull((prev) => ({ ...prev, isCategory: false }));
-    if (amountRef.current.value === "")
-      setIsNull((prev) => ({ ...prev, isAmount: false }));
-
-    let data = {
-      id: crypto.randomUUID(),
-      title: titleRef.current.value,
-      category: categoryRef.current.value,
-      amount: amountRef.current.value,
-    };
-
-    if (
-      isNull.isTitle === true ||
-      isNull.isCategory === true ||
-      isNull.isAmount === true
-    ) {
-      setExpenses((prevState) => [...prevState, data]);
-      titleRef.current.value = "";
-      categoryRef.current.value = "";
-      amountRef.current.value = "";
-    }
+    useEffect(()=>{
+      console.log(titleRef.current.value);
+      console.log(categoryRef.current.value);
+      console.log(amountRef.current.value);
+      if (titleRef.current.value === "")
+        setIsNull((prev) => ({ ...prev, isTitle: false }));
+      if (categoryRef.current.value === "")
+        setIsNull((prev) => ({ ...prev, isCategory: false }));
+      if (amountRef.current.value === "")
+        setIsNull((prev) => ({ ...prev, isAmount: false }));
+  
+      let data = {
+        id: crypto.randomUUID(),
+        title: titleRef.current.value,
+        category: categoryRef.current.value,
+        amount: amountRef.current.value,
+      };
+  
+      if (
+        isNull.isTitle === true &&
+        isNull.isCategory === true &&
+        isNull.isAmount === true
+      ) {
+        setExpenses((prevState) => [...prevState, data]);
+        // titleRef.current.value = "";
+        // categoryRef.current.value = "";
+        // amountRef.current.value = "";
+      }
+    },[])
   };
 
   return (
@@ -69,7 +72,9 @@ export default function ExpenseForm({ setExpenses }) {
         <input id="amount" ref={amountRef} />
         {!isNull.isAmount && <ErrorMsg errorMsg={"Amount Required"} />}
       </div>
-      <button className="add-btn">Add</button>
+      <button type="submit" className="add-btn">
+        Add
+      </button>
     </form>
   );
 }
