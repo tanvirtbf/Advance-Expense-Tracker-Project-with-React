@@ -47,7 +47,7 @@ export default function ExpenseForm({ setExpenses }) {
       <div className="input-container">
         <label htmlFor="title">Title</label>
         <input id="title" name="title" value={expense.title} onChange={handleChange}/>
-
+        {errors.title && <span style={{color:'red'}}>{errors.title}</span>}
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
@@ -61,10 +61,12 @@ export default function ExpenseForm({ setExpenses }) {
           <option value="education">Education</option>
           <option value="medicine">Medicine</option>
         </select>
+        {errors.category && <span style={{color:'red'}}>{errors.category}</span>}
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
         <input id="amount" name="amount" value={expense.amount} onChange={handleChange}/>
+        {errors.amount && <span style={{color:'red'}}>{errors.amount}</span>}
       </div>
       <button type="submit" className="add-btn">
         Add
