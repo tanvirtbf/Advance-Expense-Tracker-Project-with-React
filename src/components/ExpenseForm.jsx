@@ -2,41 +2,33 @@ import { useState } from "react";
 
 //Validation
 export default function ExpenseForm({ setExpenses }) {
-  const [expense, setExpense] = useState({
-    title: "",
-    category: "",
-    amount: "",
-  });
+  const [expense,setExpense] = useState({
+    title:'',
+    category:'',
+    amount:'',
+  })
   const handleSubmit = (e) => {
     e.preventDefault();
-    setExpenses((prevState) => [
+    setExpenses((prevState)=>[
       ...prevState,
-      { id: crypto.randomUUID(), ...expense },
-    ]);
+      {id:crypto.randomUUID(),...expense}
+    ])
   };
+
+  const handleChange = (e)=>{
+    const {name,value} = e.target
+    setExpense((prevState)=>({...prevState,[name]:value}))
+  }
 
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
       <div className="input-container">
         <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          onChange={(e) =>
-            setExpense((prevState) => ({ ...prevState, title: e.target.value }))
-          }
-        />
+        <input id="title" name="title" onChange={handleChange} />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          onChange={(e) =>
-            setExpense((prevState) => ({
-              ...prevState,
-              category: e.target.value,
-            }))
-          }
-        >
+        <select id="category" name="category" onChange={handleChange}>
           <option value="" hidden>
             Select Category
           </option>
@@ -49,15 +41,7 @@ export default function ExpenseForm({ setExpenses }) {
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          onChange={(e) =>
-            setExpense((prevState) => ({
-              ...prevState,
-              amount: e.target.value,
-            }))
-          }
-        />
+        <input id="amount" name="amount" onChange={handleChange} />
       </div>
       <button type="submit" className="add-btn">
         Add
