@@ -1,8 +1,16 @@
+import { useState } from "react";
 import ErrorMsg from "./ErrorMsg";
 
 //Validation
 export default function ExpenseForm({ setExpenses }) {
-  const handleSubmit = (e) => {};
+  const [expense,setExpense] = useState({
+    title:'',
+    category:'',
+    amount:'',
+  })
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
