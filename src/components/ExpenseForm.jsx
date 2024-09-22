@@ -1,76 +1,23 @@
-import { useState } from "react";
+import React from "react";
 
-export default function ExpenseForm({ setExpenses }) {
-  const [expense,setExpense] = useState({
-    title:'',
-    category:'',
-    amount:'',
-  })
-
-  const [errors,setErrors] = useState("")
-
-  const validate = (form) => {
-    let errorMsg = {}
-    if(!expense.title){
-      errorMsg.title = "Title is Required"
-    }
-    if(!expense.category){
-      errorMsg.category = "Category is Required"
-    }
-    if(!expense.amount){
-      errorMsg.amount = "Amount is Required"
-    }
-    setErrors(errorMsg)
-    return errorMsg
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validation = validate(expense)
-    if(Object.keys(validation).length) return 
-    setExpenses((prevState) => [
-      ...prevState,
-      {
-        id:crypto.randomUUID(),
-        ...expense
-      }
-    ])
-  }
-
-  const handleChange = (e) => {
-    const {name,value} = e.target
-    setExpense((prevState)=>({...prevState,[name]:value}))
-  }
-
+const ExpenseForm = () => {
   return (
-    <form className="expense-form" onSubmit={handleSubmit}>
+    <form className="expense-form">
       <div className="input-container">
         <label htmlFor="title">Title</label>
-        <input id="title" name="title" value={expense.title} onChange={handleChange}/>
-        {errors.title && <span style={{color:'red'}}>{errors.title}</span>}
+        <input id="title" />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
-        <select id="category" name="category" value={expense.category} onChange={handleChange}>
-          <option value="" hidden>
-            Select Category
-          </option>
-          <option value="grocery">Grocery</option>
-          <option value="clothes">Clothes</option>
-          <option value="bills">Bills</option>
-          <option value="education">Education</option>
-          <option value="medicine">Medicine</option>
-        </select>
-        {errors.category && <span style={{color:'red'}}>{errors.category}</span>}
+        <input id="category" />
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
-        <input id="amount" name="amount" value={expense.amount} onChange={handleChange}/>
-        {errors.amount && <span style={{color:'red'}}>{errors.amount}</span>}
+        <input id="amount" />
       </div>
-      <button type="submit" className="add-btn">
-        Add
-      </button>
+      <button className="add-btn">Add</button>
     </form>
   );
-}
+};
+
+export default ExpenseForm;

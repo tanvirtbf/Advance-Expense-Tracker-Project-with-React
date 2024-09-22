@@ -1,4 +1,6 @@
-export default function ExpenseTable({ expenses }) {
+import React from "react";
+
+const ExpenseTable = ({ expenses }) => {
   return (
     <table className="expense-table">
       <thead>
@@ -55,5 +57,6 @@ export default function ExpenseTable({ expenses }) {
       </tbody>
     </table>
   );
-}
+};
 
+export default ExpenseTable;
