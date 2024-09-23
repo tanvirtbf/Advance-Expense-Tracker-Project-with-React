@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-const ExpenseForm = ({handleSubmit}) => {
+const ExpenseForm = ({setExpenses}) => {
 
   function submitForm(e){
     e.preventDefault();
-    const {title,category,amount} = getFormData(e.target)
-    handleSubmit(title,category,amount)
+    setExpenses((prevState)=> [...prevState, getFormData(e.target)])
   } 
 
   function getFormData(form){
