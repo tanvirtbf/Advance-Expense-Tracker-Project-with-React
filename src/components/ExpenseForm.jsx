@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 
 const ExpenseForm = ({handleSubmit}) => {
-  const [title,setTitle] = useState('')
-  const [category, setCategory] = useState('')
-  const [amount,setAmount] = useState('')
 
   function submitForm(e){
     e.preventDefault();
+    const {title,category,amount} = getFormData(e.target)
     handleSubmit(title,category,amount)
-    
   } 
+
+  function getFormData(form){
+    const formData = new FormData(form)
+    let data = {}
+    for(let [key,value] of formData.entries()){
+      data[key] = value
+    }
+    return data
+  }
 
   return (
     <form className="expense-form" onSubmit={(e)=> submitForm(e)}>
       <div className="input-container">
         <label htmlFor="title">Title</label>
-        <input id="title" value={title} onChange={(e)=> setTitle(e.target.value)} />
+        <input id="title" name="title" />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
-        <select id="category" value={category} onChange={(e)=> setCategory(e.target.value)} >
+        <select id="category" name="category" >
           <option value="" hidden>Select Category</option>
           <option value="grocery">Grocery</option>
           <option value="clothes">Clothes</option>
@@ -30,7 +36,7 @@ const ExpenseForm = ({handleSubmit}) => {
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
-        <input id="amount" value={amount} onChange={(e)=> setAmount(e.target.value)} />
+        <input id="amount" name="amount" />
       </div>
       <button className="add-btn">Add</button>
     </form>
