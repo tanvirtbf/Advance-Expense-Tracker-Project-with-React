@@ -8,6 +8,7 @@ const ExpenseForm = ({handleSubmit}) => {
   function submitForm(e){
     e.preventDefault();
     handleSubmit(title,category,amount)
+    
   } 
 
   return (
