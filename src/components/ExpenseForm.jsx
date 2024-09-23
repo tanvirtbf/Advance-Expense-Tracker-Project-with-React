@@ -4,7 +4,7 @@ const ExpenseForm = ({setExpenses}) => {
 
   function submitForm(e){
     e.preventDefault();
-    setExpenses((prevState)=> [...prevState, getFormData(e.target)])
+    setExpenses((prevState)=> [...prevState, {...getFormData(e.target), id:crypto.randomUUID()}])
   } 
 
   function getFormData(form){
