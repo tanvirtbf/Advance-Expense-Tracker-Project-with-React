@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const ExpenseForm = ({setExpenses}) => {
-  const titleRef = useRef('')
-  const categoryRef = useRef('')
-  const amountRef = useRef('')
+  const titleRef = useRef(null)
+  const categoryRef = useRef(null)
+  const amountRef = useRef(null)
 
   console.log(titleRef.current)
 
