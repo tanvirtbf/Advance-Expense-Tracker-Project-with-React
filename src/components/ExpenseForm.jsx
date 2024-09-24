@@ -13,7 +13,14 @@ const ExpenseForm = ({ setExpenses }) => {
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
     ]);
-    setExpense({title:'',category:'',amount:''})
+    setExpense({ title: "", category: "", amount: "" });
+  }
+
+  function commonFunction(e) {
+    setExpense((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   }
 
   return (
@@ -24,9 +31,7 @@ const ExpenseForm = ({ setExpenses }) => {
           id="title"
           name="title"
           value={expense.title}
-          onChange={(e) =>
-            setExpense((prevState) => ({ ...prevState, title: e.target.value }))
-          }
+          onChange={commonFunction}
         />
       </div>
       <div className="input-container">
@@ -35,12 +40,7 @@ const ExpenseForm = ({ setExpenses }) => {
           id="category"
           name="category"
           value={expense.category}
-          onChange={(e) =>
-            setExpense((prevState) => ({
-              ...prevState,
-              category: e.target.value,
-            }))
-          }
+          onChange={commonFunction}
         >
           <option value="" hidden>
             Select Category
@@ -58,12 +58,7 @@ const ExpenseForm = ({ setExpenses }) => {
           id="amount"
           name="amount"
           value={expense.amount}
-          onChange={(e) =>
-            setExpense((prevState) => ({
-              ...prevState,
-              amount: e.target.value,
-            }))
-          }
+          onChange={commonFunction}
         />
       </div>
       <button className="add-btn">Add</button>
