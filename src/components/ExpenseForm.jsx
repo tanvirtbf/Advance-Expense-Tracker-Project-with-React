@@ -1,33 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import { useState } from "react";
 
-const ExpenseForm = ({setExpenses}) => {
-  const titleRef = useRef(null)
-  const categoryRef = useRef(null)
-  const amountRef = useRef(null)
+const ExpenseForm = ({ setExpenses }) => {
+  const [expense, setExpense] = useState({
+    title: "",
+    category: "",
+    amount: "",
+  });
 
-  console.log(titleRef.current)
-
-  function submitForm(e){
+  function submitForm(e) {
     e.preventDefault();
-    let formData = {
-      id: crypto.randomUUID(),
-      title: titleRef.current.value,
-      category: categoryRef.current.value,
-      amount: amountRef.current.value,
-    }
-    setExpenses((prevState) => [...prevState, formData])
-  } 
+    setExpenses((prevState) => [
+      ...prevState,
+      { ...expense, id: crypto.randomUUID() },
+    ]);
+    setExpense({title:'',category:'',amount:''})
+  }
 
   return (
-    <form className="expense-form" onSubmit={(e)=> submitForm(e)}>
+    <form className="expense-form" onSubmit={(e) => submitForm(e)}>
       <div className="input-container">
         <label htmlFor="title">Title</label>
-        <input id="title" name="title" ref={titleRef} />
+        <input
+          id="title"
+          name="title"
+          value={expense.title}
+          onChange={(e) =>
+            setExpense((prevState) => ({ ...prevState, title: e.target.value }))
+          }
+        />
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
-        <select id="category" name="category" ref={categoryRef} >
-          <option value="" hidden>Select Category</option>
+        <select
+          id="category"
+          name="category"
+          value={expense.category}
+          onChange={(e) =>
+            setExpense((prevState) => ({
+              ...prevState,
+              category: e.target.value,
+            }))
+          }
+        >
+          <option value="" hidden>
+            Select Category
+          </option>
           <option value="grocery">Grocery</option>
           <option value="clothes">Clothes</option>
           <option value="bills">Bills</option>
@@ -37,7 +54,17 @@ const ExpenseForm = ({setExpenses}) => {
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
-        <input id="amount" name="amount" ref={amountRef} />
+        <input
+          id="amount"
+          name="amount"
+          value={expense.amount}
+          onChange={(e) =>
+            setExpense((prevState) => ({
+              ...prevState,
+              amount: e.target.value,
+            }))
+          }
+        />
       </div>
       <button className="add-btn">Add</button>
     </form>
