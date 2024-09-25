@@ -43,6 +43,10 @@ const ExpenseForm = ({ setExpenses }) => {
       [e.target.name]: e.target.value,
     }));
 
+    setErrors((prevState)=> ({
+      ...prevState, 
+      [e.target.name]: '',
+    }))
   }
 
   return (
