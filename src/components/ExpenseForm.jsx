@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import Input from "./Input";
 
 const ExpenseForm = ({ setExpenses }) => {
   const [expense, setExpense] = useState({
@@ -52,46 +53,15 @@ const ExpenseForm = ({ setExpenses }) => {
 
   return (
     <form className="expense-form" onSubmit={(e) => submitForm(e)}>
-      <div className="input-container">
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          name="title"
-          value={expense.title}
-          onChange={commonFunction}
-        />
-        <p className="error">{errors.title}</p>
-      </div>
-      <div className="input-container">
-        <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          name="category"
-          value={expense.category}
-          onChange={commonFunction}
-        >
-          <option value="" hidden>
-            Select Category
-          </option>
-          <option value="grocery">Grocery</option>
-          <option value="clothes">Clothes</option>
-          <option value="bills">Bills</option>
-          <option value="education">Education</option>
-          <option value="medicine">Medicine</option>
-        </select>
-        <p className="error">{errors.category}</p>
-      </div>
-      <div className="input-container">
-        <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          name="amount"
-          value={expense.amount}
-          onChange={commonFunction}
-        />
-        <p className="error">{errors.amount}</p>
-      </div>
+
+      <Input className="input-container" label="Title" id="title" name="title" value={expense.title} onChange={commonFunction} errors={errors.title} />
+
+      <Input className="input-container" label="Category" id="category" name="category" value={expense.category} onChange={commonFunction} errors={errors. category} type="select" />
+
+      <Input className="input-container" label="Amount" id="amount" name="amount" value={expense.amount} onChange={commonFunction} errors={errors.amount} />
+
       <button className="add-btn">Add</button>
+
     </form>
   );
 };
