@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ExpenseTable = ({ expenses }) => {
+  const [filtered,setFiltered] = useState("")
+  console.log(filtered)
   return (
     <table className="expense-table">
       <thead>
         <tr>
           <th>Title</th>
           <th>
-            <select>
+            <select onChange={(e)=> setFiltered(e.target.value)}>
               <option value="">All</option>
               <option value="grocery">Grocery</option>
               <option value="clothes">Clothes</option>
