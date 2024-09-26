@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function Select({
   label,
@@ -10,6 +9,7 @@ export default function Select({
   defaultOption,
   error,
 }) {
+
   return (
     <div className="input-container">
       <label htmlFor={id}>{label}</label>

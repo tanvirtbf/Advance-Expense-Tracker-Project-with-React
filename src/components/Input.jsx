@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function Input({ label, id, name, value, onChange, error }) {
   return (
@@ -7,5 +6,5 @@ export default function Input({ label, id, name, value, onChange, error }) {
       <input id={id} name={name} value={value} onChange={onChange} />
       <p className="error">{error}</p>
     </div>
-  )
+  );
 }
