@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import Input from "./Input";
+import Select from "./Select";
 
 const ExpenseForm = ({ setExpenses }) => {
   const [expense, setExpense] = useState({
@@ -51,12 +52,14 @@ const ExpenseForm = ({ setExpenses }) => {
     }))
   }
 
+  const options = ['Grocery','Clothes','Bills','Education','Medicine']
+
   return (
     <form className="expense-form" onSubmit={(e) => submitForm(e)}>
 
       <Input className="input-container" label="Title" id="title" name="title" value={expense.title} onChange={commonFunction} errors={errors.title} />
 
-      <Input className="input-container" label="Category" id="category" name="category" value={expense.category} onChange={commonFunction} errors={errors. category} type="select" />
+      <Select className="input-container" label="Category" id="category" name="category" value={expense.category} onChange={commonFunction} errors={errors. category} options={options} defaultOption="Select Category" />
 
       <Input className="input-container" label="Amount" id="amount" name="amount" value={expense.amount} onChange={commonFunction} errors={errors.amount} />
 
