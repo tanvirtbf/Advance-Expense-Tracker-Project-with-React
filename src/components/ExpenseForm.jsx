@@ -13,6 +13,7 @@ const ExpenseForm = ({ setExpenses }) => {
   const [errors,setErrors] = useState({})
 
   function validate(form){
+    console.log(form)
     let formErrors = {}
     if(form.title===''){
       formErrors.title = 'Title is Required!'
