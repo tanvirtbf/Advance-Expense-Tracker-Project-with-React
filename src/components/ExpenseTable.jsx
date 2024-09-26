@@ -7,7 +7,6 @@ const ExpenseTable = ({ expenses }) => {
     return expense.category.toLowerCase().includes(category)
   })
 
-
   return (
     <table className="expense-table">
       <thead>
