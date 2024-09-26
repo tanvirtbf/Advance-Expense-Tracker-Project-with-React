@@ -1,82 +1,107 @@
+import React, { useEffect, useRef, useState } from 'react'
+import Input from './Input'
+import Select from './Select'
 
-import { useState } from "react";
-import Input from "./Input";
-import Select from "./Select";
-
-const ExpenseForm = ({ setExpenses }) => {
+export default function ExpenseForm({ setExpenses }) {
   const [expense, setExpense] = useState({
-    title: "",
-    category: "",
-    amount: "",
-  });
+    title: '',
+    category: '',
+    amount: '',
+  })
 
-  const [errors,setErrors] = useState({})
+  const [errors, setErrors] = useState({})
 
-  function validate(form){
-    console.log(form)
-    let formErrors = {}
-    if(form.title===''){
-      formErrors.title = 'Title is Required!'
-    }
-    if(form.category===''){
-      formErrors.category = 'Category is Required!'
-    }
-    if(form.amount===''){
-      formErrors.amount = 'Amount is Required!'
-    }
-    setErrors(formErrors)
-    return formErrors
+  const validationConfig = {
+    title: [
+      { required: true, message: 'Please enter title' },
+      { minLength: 5, message: 'Title should be at least 5 characters long' },
+    ],
+    category: [{ required: true, message: 'Please select a category' }],
+    amount: [{ required: true, message: 'Please enter an amount' }],
   }
 
-  function submitForm(e) {
-    e.preventDefault();
+  const validate = (formData) => {
+    const errorsData = {}
 
-    const validationResult = validate(expense)
-    if(Object.keys(validationResult).length) return 
+    Object.entries(formData).forEach(([key, value]) => {
+      validationConfig[key].some((rule) => {
+        if (rule.required && !value) {
+          errorsData[key] = rule.message
+          return true
+        }
+
+        if (rule.minLength && value.length < 5) {
+          errorsData[key] = rule.message
+          return true
+        }
+
+        if (rule.pattern && !rule.pattern.test(value)) {
+          errorsData[key] = rule.message
+          return true
+        }
+      })
+    })
+
+    setErrors(errorsData)
+    return errorsData
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const validateResult = validate(expense)
+
+    if (Object.keys(validateResult).length) return
 
     setExpenses((prevState) => [
       ...prevState,
       { ...expense, id: crypto.randomUUID() },
-    ]);
-    setExpense({ title: "", category: "", amount: "" });
+    ])
+    setExpense({
+      title: '',
+      category: '',
+      amount: '',
+    })
   }
 
-  function commonFunction(e) {
+  const handleChange = (e) => {
+    const { name, value } = e.target
     setExpense((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-
-    setErrors((prevState)=> ({
-      ...prevState, 
-      [e.target.name]: '',
+      [name]: value,
     }))
+    setErrors({})
   }
 
-  const options = ['Grocery','Clothes','Bills','Education','Medicine']
-
   return (
-    <form className="expense-form" onSubmit={(e) => submitForm(e)}>
-
-      <Input className="input-container" label="Title" id="title" name="title" value={expense.title} onChange={commonFunction} errors={errors.title} />
-
-      <Select className="input-container" label="Category" id="category" name="category" value={expense.category} onChange={commonFunction} errors={errors. category} options={options} defaultOption="Select Category" />
-
-      <Input className="input-container" label="Amount" id="amount" name="amount" value={expense.amount} onChange={commonFunction} errors={errors.amount} />
-
+    <form className="expense-form" onSubmit={handleSubmit}>
+      <Input
+        label="Title"
+        id="title"
+        name="title"
+        value={expense.title}
+        onChange={handleChange}
+        error={errors.title}
+      />
+      <Select
+        label="Category"
+        id="category"
+        name="category"
+        value={expense.category}
+        onChange={handleChange}
+        options={['Grocery', 'Clothes', 'Bills', 'Education', 'Medicine']}
+        defaultOption="Select Category"
+        error={errors.category}
+      />
+      <Input
+        label="Amount"
+        id="amount"
+        name="amount"
+        value={expense.amount}
+        onChange={handleChange}
+        error={errors.amount}
+      />
       <button className="add-btn">Add</button>
-
     </form>
-  );
-};
-
-export default ExpenseForm;
-
-
-
-
-
-
-
-
-
+  )
+}
